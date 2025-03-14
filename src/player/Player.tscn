@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7g6rlccocxno"]
+
+[ext_resource type="Script" uid="uid://3p15ggsweeqb" path="res://src/player/player.gd" id="1_g641l"]
+[ext_resource type="Texture2D" uid="uid://yfg2nk1h8piu" path="res://assets/Player/Player.png" id="1_tehm3"]
+[ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="2_chb7w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tehm3"]
+size = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_g641l"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_3ojaj"]
+resource_name = "falling"
+length = 0.5
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_565yv"]
+resource_name = "die"
+
+[sub_resource type="Animation" id="Animation_v7rlw"]
+resource_name = "jump"
+
+[sub_resource type="Animation" id="Animation_v5qoq"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ojaj"]
+_data = {
+&"die": SubResource("Animation_565yv"),
+&"falling": SubResource("Animation_3ojaj"),
+&"idle": SubResource("Animation_g641l"),
+&"jump": SubResource("Animation_v7rlw"),
+&"walk": SubResource("Animation_v5qoq")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_g641l")
+
+[node name="SpriteHolder" type="Node2D" parent="."]
+
+[node name="Player" type="Sprite2D" parent="SpriteHolder"]
+texture_filter = 1
+position = Vector2(0, -12)
+texture = ExtResource("1_tehm3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_tehm3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_right = 24.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_chb7w")
+theme_override_font_sizes/font_size = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3ojaj")
+}
+autoplay = "idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -24)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true

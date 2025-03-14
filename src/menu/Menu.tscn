@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://duqvai3qj7r4k"]
+
+[ext_resource type="Script" uid="uid://0b0ak765xs3o" path="res://src/menu/menu.gd" id="1_kwft6"]
+[ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="1_ps8b8"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kwft6")
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="v" type="VBoxContainer" parent="Main"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Spacer" type="Control" parent="Main/v"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+
+[node name="h" type="HBoxContainer" parent="Main/v"]
+layout_mode = 2
+
+[node name="PlayBtn" type="Button" parent="Main/v/h"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ps8b8")
+theme_override_font_sizes/font_size = 16
+text = "M_PLAY"
+
+[node name="SettingsBtn" type="Button" parent="Main/v/h"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ps8b8")
+theme_override_font_sizes/font_size = 16
+text = "M_SETTINGS"
+
+[connection signal="button_up" from="Main/v/h/PlayBtn" to="." method="_on_play_btn_button_up"]
+[connection signal="button_up" from="Main/v/h/SettingsBtn" to="." method="_on_settings_btn_button_up"]
