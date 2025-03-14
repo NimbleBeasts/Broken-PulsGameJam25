@@ -47,6 +47,10 @@ func get_direction_input():
 	
 
 func _physics_process(delta):
+	
+	if Global.debugLabel:
+		Global.debugLabel.set_text("Ink: " + str(Global.ink_count))
+	
 	if global_position.y > 666 and not state.dead:
 		die()
 		return
@@ -63,6 +67,7 @@ func _physics_process(delta):
 				pass
 			
 		if Input.is_action_just_pressed("game_flash"):
+			Global.ink_count += 10
 			Events.emit_signal("flash")
 
 

@@ -10,6 +10,7 @@ const DEBUG = false
 
 var debugLabel: Label
 var current_level: int = -1
+var ink_count: int = 0
 
 var userConfig = {
 	"configVersion": CONFIG_VERSION,

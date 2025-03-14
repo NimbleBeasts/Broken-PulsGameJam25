@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8p4obawy6bel"]
+[gd_scene load_steps=12 format=3 uid="uid://c8p4obawy6bel"]
 
 [ext_resource type="Script" uid="uid://b5qhu387qogj7" path="res://src/GameManager.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://obrgfbqo1mmf" path="res://assets/Menu/nbSplash.png" id="2"]
 [ext_resource type="PackedScene" uid="uid://duqvai3qj7r4k" path="res://src/menu/Menu.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dhubh3kcqgnvq" path="res://src/AudioPlayer.tscn" id="4"]
 [ext_resource type="Environment" path="res://default_environment.tres" id="5"]
+[ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="5_lm1nf"]
 [ext_resource type="PackedScene" uid="uid://bm8dps8elwshg" path="res://src/hud/Hud.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://5dowgbtqyq8g" path="res://src/ShaderOverlay.tscn" id="7"]
 
@@ -82,8 +83,11 @@ environment = SubResource("2")
 
 [node name="Debug" type="Label" parent="."]
 layout_mode = 0
+offset_top = 156.0
 offset_right = 40.0
-offset_bottom = 14.0
+offset_bottom = 179.0
+theme_override_fonts/font = ExtResource("5_lm1nf")
+theme_override_font_sizes/font_size = 16
 
 [node name="BootSplash" type="Control" parent="."]
 visible = false
