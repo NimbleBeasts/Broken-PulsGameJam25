@@ -64,6 +64,7 @@ texture = ExtResource("2_d3atq")
 hframes = 3
 
 [node name="Marker2D" type="Marker2D" parent="FlameTrap"]
+position = Vector2(0, 8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

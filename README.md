@@ -2,6 +2,8 @@
 Made with <3 by NimbleBeasts with Godot 4.4
 ![](assets/Logo.png)
 
+Game play footage
+![](_itch/game_preview.gif)
 
 
 # Controls
@@ -15,4 +17,4 @@ Made with <3 by NimbleBeasts with Godot 4.4
 - [x] FallGuy
 - [ ] 5 Levels
 - [ ] Balancing
-- [ ] Itch Page
+- [x] Itch Page

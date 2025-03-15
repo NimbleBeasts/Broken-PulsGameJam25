@@ -13,6 +13,8 @@ func _physics_process(delta: float) -> void:
 			velocity.y += DEFAULT_GRAVITY.y * delta
 			move_and_slide()
 
+func die_hurter():
+	queue_free()
 
 func _on_detect_player_body_entered(body: Node2D) -> void:
 	print(body)

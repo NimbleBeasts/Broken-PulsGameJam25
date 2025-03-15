@@ -54,6 +54,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("game_end"):
 		Events.emit_signal("game_end")
+	elif Input.is_action_just_pressed("game_cheat"):
+		Events.emit_signal("game_nextlevel")
 	
 	
 	if not state.dead:
@@ -84,7 +86,7 @@ func _physics_process(delta):
 			# Ligthen up the scene
 			if Input.is_action_just_pressed("game_light"):
 				$AnimationPlayer.play("use")
-				if Global.matches_count > 1:
+				if Global.matches_count > 0:
 					Global.matches_count -= 1
 					Events.emit_signal("hud_matches", Global.matches_count)
 					Events.emit_signal("light")
@@ -106,7 +108,7 @@ func _flash():
 func update_animation():
 	var anim = ""
 	
-	if $AnimationPlayer.current_animation in ["use", "hurt", "die"]:
+	if $AnimationPlayer.current_animation in ["use", "hurt", "die", "ladder"]:
 		return
 
 
@@ -160,6 +162,7 @@ func process_movement(delta, input_direction):
 			state.velocity.x *= 0.0
 			state.velocity.y *= 0.5
 			state.current_state = PlayerState.Ladder
+			$AnimationPlayer.play("ladder")
 			return
 
 	# Jumping
@@ -227,10 +230,12 @@ func process_ladder(delta, input_direction):
 		state.jumping = true
 		state.has_jumped = true
 		state.current_state = PlayerState.Normal
+		$AnimationPlayer.play("jump")
 		return
 	# Not on ladder
 	if $LadderArea.get_overlapping_bodies().size() == 0:
 		state.current_state = PlayerState.Normal
+		$AnimationPlayer.play("idle")
 		return
 
 	# Stop movement
@@ -261,6 +266,10 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 		Events.emit_signal("hud_lifes", Global.lifes)
 		state.hurt = true
 		state.stun = true
+		
+		if body.has_method("die_hurter"):
+			body.die_hurter()
+		
 		if Global.lifes > 0:
 			$HurtCounter.start()
 			$StunCounter.start()
@@ -283,7 +292,3 @@ func _on_hurt_counter_timeout() -> void:
 func _on_stun_counter_timeout() -> void:
 	# Player is stunned
 	state.stun = false
-
-
-func _on_ladder_area_body_entered(body: Node2D) -> void:
-	print(body)

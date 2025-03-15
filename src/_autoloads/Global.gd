@@ -34,4 +34,5 @@ var userConfig = {
 const levels = [
 	"res://src/levels/Level0.tscn",
 	"res://src/levels/Level1.tscn",
+	"res://src/levels/Level2.tscn",
 ]

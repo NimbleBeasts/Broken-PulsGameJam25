@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://b0w5dfojouml2"]
+[gd_scene load_steps=10 format=4 uid="uid://b0w5dfojouml2"]
 
 [ext_resource type="PackedScene" uid="uid://di75x0giljtv" path="res://src/levels/BaseLevel.tscn" id="1_oqbng"]
 [ext_resource type="PackedScene" uid="uid://y0q3civ27mi3" path="res://src/level_elemets/FallingBlock.tscn" id="2_2tiog"]
@@ -6,7 +6,33 @@
 [ext_resource type="PackedScene" uid="uid://cpmkkjkgoaqyj" path="res://src/level_elemets/JumpPad.tscn" id="3_dtpjg"]
 [ext_resource type="PackedScene" uid="uid://btag4rlv28bo0" path="res://src/level_elemets/Pickup.tscn" id="4_vv04x"]
 [ext_resource type="PackedScene" uid="uid://b4a1fshjieks1" path="res://src/level_elemets/LevelEnd.tscn" id="5_j4so5"]
-[ext_resource type="PackedScene" uid="uid://bk621ueg58in4" path="res://src/level_elemets/FallGuy.tscn" id="6_306o8"]
+
+[sub_resource type="Animation" id="Animation_2tiog"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_712it"]
 resource_name = "start"
@@ -34,33 +60,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_2tiog"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Line2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2tiog"]
@@ -123,25 +122,23 @@ position = Vector2(808, 48)
 [node name="LevelEnd" parent="Level" index="13" instance=ExtResource("5_j4so5")]
 position = Vector2(1072, 64)
 
-[node name="FallGuy" parent="Level" index="14" instance=ExtResource("6_306o8")]
-position = Vector2(104, 72)
-
 [node name="Player" parent="." index="2"]
 position = Vector2(72, 120)
 
 [node name="Tutorial" type="RichTextLabel" parent="." index="9"]
-offset_left = 40.0
-offset_top = 32.0
-offset_right = 216.0
-offset_bottom = 120.0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 192.0
+offset_bottom = 128.0
 theme_override_colors/default_color = Color(0.92549, 0.866667, 0.729412, 1)
 theme_override_fonts/normal_font = ExtResource("2_712it")
 theme_override_font_sizes/normal_font_size = 16
-text = "Oh, noe! The light is broken. 
-But you have got some matches (F) and also some ink left (Mouse1).."
+text = "Oh, no! The lights are broken!
+But you have got some matches (F) and also some ink left (Mouse1)"
 
 [node name="Line2D" type="Line2D" parent="Tutorial" index="1"]
-points = PackedVector2Array(136, 96, 136, 88, 136, 82, 136, 77, 136, 73, 137, 68, 139, 64, 143, 64, 147, 64, 151, 63, 153, 66, 153, 71, 152, 76, 153, 81, 152, 86, 152, 90, 153, 93, 153, 95, 157, 95)
+position = Vector2(24, -8)
+points = PackedVector2Array(136, 96, 136, 88, 136, 82, 136, 77, 136, 73, 137, 68, 139, 64, 143, 64, 147, 64, 151, 63, 152, 64, 152, 72, 151, 76, 152, 81, 151, 86, 151, 91, 151, 94, 152, 96, 157, 97)
 width = 2.0
 default_color = Color(0.92549, 0.866667, 0.729412, 1)
 

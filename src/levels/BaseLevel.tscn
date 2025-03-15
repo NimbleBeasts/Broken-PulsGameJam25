@@ -78,6 +78,7 @@ texture = ExtResource("2_y0vfd")
 6:0/0 = 0
 6:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 10:1/0 = 0
+11:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_a4n8v"]
 physics_layer_0/collision_layer = 1
@@ -165,7 +166,7 @@ tracks/0/path = NodePath("Level:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.9, 1.3),
+"times": PackedFloat32Array(0, 0.2, 1.2, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.784314, 0.588235, 0.376471, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
@@ -177,7 +178,7 @@ tracks/1/path = NodePath("Background:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.9, 1.3),
+"times": PackedFloat32Array(0, 0.2, 1.2, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.784314, 0.588235, 0.376471, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
@@ -193,7 +194,7 @@ tracks/0/path = NodePath("Level:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 1.5),
+"times": PackedFloat32Array(0, 0.1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -205,7 +206,7 @@ tracks/1/path = NodePath("Background:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 1.5),
+"times": PackedFloat32Array(0, 0.1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -225,7 +226,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_glu2l"]
 resource_name = "hurt"
-length = 0.4
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -234,7 +235,7 @@ tracks/0/path = NodePath("Level:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.92549, 0.866667, 0.729412, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
@@ -246,7 +247,7 @@ tracks/1/path = NodePath("Background:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.92549, 0.866667, 0.729412, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
