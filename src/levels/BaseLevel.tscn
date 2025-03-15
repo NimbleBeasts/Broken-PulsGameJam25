@@ -49,6 +49,7 @@ texture = ExtResource("2_y0vfd")
 3:1/0 = 0
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0 = 0
+3:0/0/physics_layer_2/polygon_0/points = PackedVector2Array(-4.13675, -8, 3.95689, -8, 3.77703, 8, -4.31661, 8)
 4:0/0 = 0
 4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:1/0 = 0
@@ -278,6 +279,8 @@ position = Vector2(56, 128)
 libraries = {
 &"": SubResource("AnimationLibrary_iearj")
 }
+
+[node name="Bullets" type="Node2D" parent="."]
 
 [node name="Marks" type="Node2D" parent="."]
 

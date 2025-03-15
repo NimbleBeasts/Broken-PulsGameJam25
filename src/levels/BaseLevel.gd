@@ -8,6 +8,8 @@ var current_line: Line2D = null
 @export var matches: int = 10
 
 @onready var mark_scene = preload("res://src/player/PlayerLandingMark.tscn")
+@onready var bullet_scene = preload("res://src/level_elemets/FireBullet.tscn")
+
 
 func _ready() -> void:
 	Events.connect("flash", _flash)
@@ -15,6 +17,8 @@ func _ready() -> void:
 	Events.connect("hurt", _hurt)
 	Events.connect("landing_mark", _landing_mark)
 	Events.connect("cheat_light", _cheat_light)
+	Events.connect("shoot_bullet", _shoot_bullet)
+	
 	start()
 
 
@@ -30,8 +34,12 @@ func start():
 	Events.emit_signal("hud_matches", Global.matches_count)
 	Events.emit_signal("hud_ink", Global.ink_count)
 	Events.emit_signal("hud_time", Global.time)
+	
 
-
+func _shoot_bullet(pos):
+	var bullet = bullet_scene.instantiate()
+	$Bullets.add_child(bullet)
+	bullet.global_position = pos
 	
 func _cheat_light():
 	$AnimationPlayer.stop()

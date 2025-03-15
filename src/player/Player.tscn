@@ -1,12 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7g6rlccocxno"]
+[gd_scene load_steps=17 format=3 uid="uid://c7g6rlccocxno"]
 
 [ext_resource type="Script" uid="uid://3p15ggsweeqb" path="res://src/player/player.gd" id="1_g641l"]
 [ext_resource type="Texture2D" uid="uid://yfg2nk1h8piu" path="res://assets/Player/Player.png" id="1_tehm3"]
 [ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="2_chb7w"]
 [ext_resource type="Texture2D" uid="uid://b11jeily2dx7" path="res://assets/LightShadow.png" id="4_3ojaj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tehm3"]
-size = Vector2(10, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7rlw"]
+size = Vector2(8, 8)
 
 [sub_resource type="Animation" id="Animation_565yv"]
 resource_name = "die"
@@ -218,6 +218,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ojaj"]
 size = Vector2(10, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_565yv"]
+size = Vector2(5, 5)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_g641l")
 
@@ -230,8 +233,8 @@ texture = ExtResource("1_tehm3")
 hframes = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_tehm3")
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_v7rlw")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -274,6 +277,14 @@ collision_mask = 2
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_3ojaj")
 
+[node name="LadderArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderArea"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_565yv")
+
 [node name="HurtCounter" type="Timer" parent="."]
 wait_time = 1.2
 
@@ -281,5 +292,6 @@ wait_time = 1.2
 wait_time = 0.5
 
 [connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
+[connection signal="body_entered" from="LadderArea" to="." method="_on_ladder_area_body_entered"]
 [connection signal="timeout" from="HurtCounter" to="." method="_on_hurt_counter_timeout"]
 [connection signal="timeout" from="StunCounter" to="." method="_on_stun_counter_timeout"]

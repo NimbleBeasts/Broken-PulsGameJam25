@@ -30,7 +30,7 @@ var state = {
 	"jumping": false,
 	"has_jumped": false,
 	"air_time": 0,
-	"ladder_area": null,
+	"ladder_area": false,
 	"bounce": false,
 	"jumppad": false,
 }
@@ -153,6 +153,14 @@ func pickup(pickup: Types.PickupType):
 
 func process_movement(delta, input_direction):
 	var on_floor_or_ghost = is_on_floor()
+	
+	if abs(input_direction.y) > 0:
+		# Check for ladder
+		if $LadderArea.get_overlapping_bodies().size() > 0:
+			state.velocity.x *= 0.0
+			state.velocity.y *= 0.5
+			state.current_state = PlayerState.Ladder
+			return
 
 	# Jumping
 	if on_floor_or_ghost:
@@ -213,19 +221,15 @@ func process_movement(delta, input_direction):
 func process_ladder(delta, input_direction):
 	var on_floor_or_ghost = is_on_floor()
 
-	if state.ladder_area:
-		if position.x != state.ladder_area.global_position.x:
-			if position.x < state.ladder_area.global_position.x:
-				position.x += LADDER_CORRECTION_SPEED*delta
-			else:
-				position.x -= LADDER_CORRECTION_SPEED*delta
-
-			if abs(state.ladder_area.global_position.x - position.x) < 2:
-				position.x = state.ladder_area.global_position.x
-			return
-
 	# Quit ladder on jump
 	if Input.is_action_just_pressed("game_jump"):
+		state.velocity.y =- JUMP_FORCE
+		state.jumping = true
+		state.has_jumped = true
+		state.current_state = PlayerState.Normal
+		return
+	# Not on ladder
+	if $LadderArea.get_overlapping_bodies().size() == 0:
 		state.current_state = PlayerState.Normal
 		return
 
@@ -279,3 +283,7 @@ func _on_hurt_counter_timeout() -> void:
 func _on_stun_counter_timeout() -> void:
 	# Player is stunned
 	state.stun = false
+
+
+func _on_ladder_area_body_entered(body: Node2D) -> void:
+	print(body)

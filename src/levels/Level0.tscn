@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b0w5dfojouml2"]
+[gd_scene load_steps=11 format=4 uid="uid://b0w5dfojouml2"]
 
 [ext_resource type="PackedScene" uid="uid://di75x0giljtv" path="res://src/levels/BaseLevel.tscn" id="1_oqbng"]
 [ext_resource type="PackedScene" uid="uid://y0q3civ27mi3" path="res://src/level_elemets/FallingBlock.tscn" id="2_2tiog"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cpmkkjkgoaqyj" path="res://src/level_elemets/JumpPad.tscn" id="3_dtpjg"]
 [ext_resource type="PackedScene" uid="uid://btag4rlv28bo0" path="res://src/level_elemets/Pickup.tscn" id="4_vv04x"]
 [ext_resource type="PackedScene" uid="uid://b4a1fshjieks1" path="res://src/level_elemets/LevelEnd.tscn" id="5_j4so5"]
+[ext_resource type="PackedScene" uid="uid://bk621ueg58in4" path="res://src/level_elemets/FallGuy.tscn" id="6_306o8"]
 
 [sub_resource type="Animation" id="Animation_712it"]
 resource_name = "start"
@@ -122,11 +123,11 @@ position = Vector2(808, 48)
 [node name="LevelEnd" parent="Level" index="13" instance=ExtResource("5_j4so5")]
 position = Vector2(1072, 64)
 
+[node name="FallGuy" parent="Level" index="14" instance=ExtResource("6_306o8")]
+position = Vector2(104, 72)
+
 [node name="Player" parent="." index="2"]
 position = Vector2(72, 120)
-
-[node name="LightningTimer" parent="." index="8"]
-wait_time = 10.0
 
 [node name="Tutorial" type="RichTextLabel" parent="." index="9"]
 offset_left = 40.0
@@ -149,3 +150,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_2tiog")
 }
 autoplay = "start"
+
+[node name="LightningTimer" parent="." index="10"]
+wait_time = 10.0
