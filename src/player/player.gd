@@ -4,7 +4,7 @@ const DEFAULT_GRAVITY = Vector2(0, 9)
 const JUMP_FORCE = 200
 const BOUNCE_FORCE = 150
 const JUMP_FORCE_EXTERNAL = 280
-const JUMP_FORCE_JUMPPAD = 450
+const JUMP_FORCE_JUMPPAD = 240
 const STOP_FORCE_FLOOR = 550
 const STOP_FORCE_AIR = 20
 const STOP_FORCE_LADDER = 800
@@ -19,13 +19,11 @@ enum RecordEvent {Move, Anim, Shoot}
 var counter = 0
 
 var state = {
-	"ghost_no": -1,
+	"hurt": false,
+	"stun": false,
+	"set_mark": false,
 	"dead": false,
-	"last_record_id": 0,
 	"current_state": PlayerState.Normal,
-	"suspend_respawn": false,
-	"pickup": [],
-	"ghost_anim_end": false,
 
 	# Movement
 	"velocity": Vector2(0,0),
@@ -33,8 +31,6 @@ var state = {
 	"has_jumped": false,
 	"air_time": 0,
 	"ladder_area": null,
-	"has_bullet": true,
-	"extern_jump": false,
 	"bounce": false,
 	"jumppad": false,
 }
@@ -44,18 +40,31 @@ func get_direction_input():
 	input.x = int(Input.is_action_pressed("game_right")) - int(Input.is_action_pressed("game_left"))
 	input.y = int(Input.is_action_pressed("game_down")) - int(Input.is_action_pressed("game_up"))
 	return input
-	
+
+func _ready() -> void:
+	Events.connect("flash", _flash)
+
+func set_jumppad(strength):
+	state.velocity.y = 0
+	state.jumppad = true
+	state.jumppad_strength = strength
+
 
 func _physics_process(delta):
 	
+	
+	$Label2.set_text(str(state))
+	
 	if Global.debugLabel:
 		Global.debugLabel.set_text("Ink: " + str(Global.ink_count))
-	
+
 	if global_position.y > 666 and not state.dead:
-		die()
+		state.dead = true
 		return
 	if not state.dead:
+		
 		var input_direction = get_direction_input()
+		if state.stun: input_direction = Vector2(0, 0)
 		update_animation()
 			
 		match state.current_state:
@@ -65,14 +74,31 @@ func _physics_process(delta):
 				process_ladder(delta, input_direction)
 			_:
 				pass
-			
-		if Input.is_action_just_pressed("game_flash"):
-			Global.ink_count += 10
+		
+		# Ligthen up the scene
+		if Input.is_action_just_pressed("game_light"):
+			$AnimationPlayer.play("use")
+			if Global.matches_count > 1:
+				Global.matches_count -= 1
+				Events.emit_signal("light")
+				$LightShadow.show()
+		elif Input.is_action_just_pressed("game_restart"):
+			Events.emit_signal("game_restart")
+		# Cheats
+		elif Input.is_action_just_pressed("cheat_flash"):
 			Events.emit_signal("flash")
+		elif Input.is_action_just_pressed("cheat_light"):
+			Events.emit_signal("cheat_light")
 
+func _flash():
+	$LightShadow.hide()
 
 func update_animation():
 	var anim = ""
+	
+	if $AnimationPlayer.current_animation in ["use", "hurt", "die"]:
+		return
+
 
 	if state.current_state == PlayerState.Ladder:
 		pass
@@ -81,10 +107,18 @@ func update_animation():
 			anim = "walk"
 		else:
 			anim = "idle"
+			
+		if state.velocity.y > 190:
+			state.set_mark = true
+
 		if state.velocity.y > 32:
 			anim = "falling"
 		elif state.velocity.y < 0:
 			anim = "jump"
+		else:
+			if $AnimationPlayer.current_animation == "falling" and state.set_mark:
+				Events.emit_signal("landing_mark", global_position)
+				state.set_mark = false
 
 	if $AnimationPlayer.current_animation == "shoot":
 		return
@@ -93,8 +127,18 @@ func update_animation():
 		$Label.set_text("play: " + str(anim))
 		$AnimationPlayer.play(anim)
 
-func die():
-	state.dead = true
+
+func pickup(pickup: Types.PickupType):
+	match pickup:
+		Types.PickupType.Life:
+			Global.lifes = min(Global.lifes + 1, 5)
+			Events.emit_signal("hud_lifes", Global.lifes)
+		Types.PickupType.Ink:
+			Global.ink_count = min(Global.ink_count + 50, 100)
+			Events.emit_signal("hud_ink", Global.ink_count)
+		Types.PickupType.Match:
+			Global.matches_count += 5
+			Events.emit_signal("hud_matches", Global.matches_count)
 
 
 func process_movement(delta, input_direction):
@@ -115,13 +159,9 @@ func process_movement(delta, input_direction):
 
 	if state.jumppad:
 		#$JumpSound.play()
-		state.velocity.y =- JUMP_FORCE_JUMPPAD
+		state.velocity.y =- JUMP_FORCE_JUMPPAD - 44 * state.jumppad_strength
 		state.jumppad = false
 
-	if state.extern_jump:
-		#$JumpSound.play()
-		state.velocity.y =- JUMP_FORCE_EXTERNAL
-		state.extern_jump = false
 
 	if Input.is_action_just_pressed("game_jump") and on_floor_or_ghost and not state.jumping:
 		#$JumpSound.play()
@@ -198,3 +238,31 @@ func process_ladder(delta, input_direction):
 	set_up_direction(Vector2(0, -1))
 	move_and_slide()
 	state.velocity = velocity
+
+
+func _on_hurt_area_body_entered(body: Node2D) -> void:
+	# Player hurt himself
+	if state.hurt == false:
+		Global.lifes = max(Global.lifes - 1, 0)
+		Events.emit_signal("hud_lifes", Global.lifes)
+		state.hurt = true
+		state.stun = true
+		if Global.lifes > 0:
+			$HurtCounter.start()
+			$StunCounter.start()
+			$AnimationPlayer.play("hurt")
+			Events.emit_signal("hurt")
+		else:
+			state.death = true
+			$AnimationPlayer.play("die")
+
+
+func _on_hurt_counter_timeout() -> void:
+	# Player can hurt himself again
+	state.hurt = false
+	if $HurtArea.get_overlapping_bodies().size() > 0:
+		_on_hurt_area_body_entered(self)
+
+func _on_stun_counter_timeout() -> void:
+	# Player is stunned
+	state.stun = false

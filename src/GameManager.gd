@@ -19,9 +19,10 @@ func _ready():
 
 	Events.connect("cfg_switch_fullscreen", Callable(self, "_switchFullscreen"))
 	Events.connect("new_game", Callable(self, "_newGame"))
-	Events.connect("restart_level", Callable(self, "_restartLevel"))
 	Events.connect("load_level", Callable(self, "_loadLevel"))
 	Events.connect("menu_back", Callable(self, "_backToMenu"))
+	
+	Events.connect("game_restart", _game_restart)
 
 
 	switchTo(Types.GameStates.Menu)
@@ -80,7 +81,7 @@ func _backToMenu():
 # Event Hook: New Game
 func _newGame():
 	#GameData.new_level()
-	_restartLevel()
+	_game_restart()
 
 func _loadLevel(id):
 	#GameData.new_level()
@@ -89,7 +90,7 @@ func _loadLevel(id):
 	loadLevel(id)
 	switchTo(Types.GameStates.Game)
 
-func _restartLevel():
+func _game_restart():
 	if levelNode:
 		unloadLevel()
 	loadLevel(Global.current_level)

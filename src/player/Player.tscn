@@ -1,43 +1,161 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7g6rlccocxno"]
+[gd_scene load_steps=16 format=3 uid="uid://c7g6rlccocxno"]
 
 [ext_resource type="Script" uid="uid://3p15ggsweeqb" path="res://src/player/player.gd" id="1_g641l"]
 [ext_resource type="Texture2D" uid="uid://yfg2nk1h8piu" path="res://assets/Player/Player.png" id="1_tehm3"]
 [ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="2_chb7w"]
+[ext_resource type="Texture2D" uid="uid://b11jeily2dx7" path="res://assets/LightShadow.png" id="4_3ojaj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tehm3"]
 size = Vector2(10, 10)
 
-[sub_resource type="Animation" id="Animation_g641l"]
-resource_name = "idle"
-length = 0.5
+[sub_resource type="Animation" id="Animation_565yv"]
+resource_name = "die"
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 14, 15, 13, 14, 15, 14, 15]
+}
 
 [sub_resource type="Animation" id="Animation_3ojaj"]
 resource_name = "falling"
-length = 0.5
+length = 0.4
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [7, 8]
+}
 
-[sub_resource type="Animation" id="Animation_565yv"]
-resource_name = "die"
+[sub_resource type="Animation" id="Animation_g641l"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
 
 [sub_resource type="Animation" id="Animation_v7rlw"]
 resource_name = "jump"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
 
 [sub_resource type="Animation" id="Animation_v5qoq"]
 resource_name = "walk"
-length = 0.8
+length = 0.4
 loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_jtmj1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ebyyx"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 14, 15, 13]
+}
+
+[sub_resource type="Animation" id="Animation_bj1ma"]
+resource_name = "use"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ojaj"]
 _data = {
+&"RESET": SubResource("Animation_jtmj1"),
 &"die": SubResource("Animation_565yv"),
 &"falling": SubResource("Animation_3ojaj"),
+&"hurt": SubResource("Animation_ebyyx"),
 &"idle": SubResource("Animation_g641l"),
 &"jump": SubResource("Animation_v7rlw"),
+&"use": SubResource("Animation_bj1ma"),
 &"walk": SubResource("Animation_v5qoq")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ojaj"]
+size = Vector2(10, 10)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_g641l")
 
 [node name="SpriteHolder" type="Node2D" parent="."]
@@ -46,6 +164,7 @@ script = ExtResource("1_g641l")
 texture_filter = 1
 position = Vector2(0, -12)
 texture = ExtResource("1_tehm3")
+hframes = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -55,6 +174,14 @@ shape = SubResource("RectangleShape2D_tehm3")
 offset_left = -16.0
 offset_right = 24.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_chb7w")
+theme_override_font_sizes/font_size = 16
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -72.0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 39.0
 theme_override_fonts/font = ExtResource("2_chb7w")
 theme_override_font_sizes/font_size = 16
 
@@ -68,3 +195,25 @@ autoplay = "idle"
 position = Vector2(0, -24)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="LightShadow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_3ojaj")
+
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_3ojaj")
+
+[node name="HurtCounter" type="Timer" parent="."]
+
+[node name="StunCounter" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
+[connection signal="timeout" from="HurtCounter" to="." method="_on_hurt_counter_timeout"]
+[connection signal="timeout" from="StunCounter" to="." method="_on_stun_counter_timeout"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw8oxi3eu0q44"]
+
+[ext_resource type="Texture2D" uid="uid://dt8tuthlubru8" path="res://assets/Player/PlayerLandingMark.png" id="1_a5d0g"]
+[ext_resource type="Script" uid="uid://bqyd1swcrw1lg" path="res://src/player/player_landing_mark.gd" id="1_w5tro"]
+
+[node name="PlayerLandingMark" type="Node2D"]
+script = ExtResource("1_w5tro")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, 0)
+texture = ExtResource("1_a5d0g")
+centered = false
+hframes = 2

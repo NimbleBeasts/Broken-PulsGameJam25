@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://bm8dps8elwshg"]
+[gd_scene load_steps=5 format=3 uid="uid://bm8dps8elwshg"]
+
+[ext_resource type="Script" uid="uid://cfi3lnsgrpp34" path="res://src/hud/hud.gd" id="1_5k8vh"]
+[ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="1_vfst6"]
+[ext_resource type="Texture2D" uid="uid://bex0wwwogxk4e" path="res://assets/Hud/BarUnder.png" id="2_06umg"]
+[ext_resource type="Texture2D" uid="uid://bwpx8shamoakx" path="res://assets/Hud/BarProgress.png" id="3_5k8vh"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -7,10 +12,59 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5k8vh")
 
-[node name="Label" type="Label" parent="."]
-visible = false
+[node name="Time" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
+offset_left = 264.0
+offset_right = 314.0
 offset_bottom = 23.0
-text = "Text"
+theme_override_colors/font_color = Color(0.92549, 0.866667, 0.729412, 1)
+theme_override_fonts/font = ExtResource("1_vfst6")
+theme_override_font_sizes/font_size = 16
+text = "¦ 1:10:42"
+
+[node name="Lifes" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 58.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.92549, 0.866667, 0.729412, 1)
+theme_override_fonts/font = ExtResource("1_vfst6")
+theme_override_font_sizes/font_size = 16
+text = "____^"
+
+[node name="Ink" type="Label" parent="."]
+layout_mode = 0
+offset_left = 152.0
+offset_right = 202.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.92549, 0.866667, 0.729412, 1)
+theme_override_fonts/font = ExtResource("1_vfst6")
+theme_override_font_sizes/font_size = 16
+text = "Ink"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Ink"]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 96.0
+offset_bottom = 16.0
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("2_06umg")
+texture_progress = ExtResource("3_5k8vh")
+
+[node name="Match" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 130.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.92549, 0.866667, 0.729412, 1)
+theme_override_fonts/font = ExtResource("1_vfst6")
+theme_override_font_sizes/font_size = 16
+text = "Matches: 12
+"

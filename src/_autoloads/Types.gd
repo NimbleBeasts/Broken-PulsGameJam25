@@ -10,3 +10,5 @@ enum BulletType {Normal = 0, Plasma = 1}
 enum MenuLevelSelectionType {Normal, Locked, Void}
 
 enum MusicTracks {Theme = 0, Tutorial = 1, Normal = 2, Fast = 3}
+
+enum PickupType {Life = 0, Ink = 1, Match = 2}

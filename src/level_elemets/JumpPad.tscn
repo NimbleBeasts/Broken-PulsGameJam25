@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpmkkjkgoaqyj"]
+
+[ext_resource type="Texture2D" uid="uid://b4i61iynurmgy" path="res://assets/LevelElements/JumpPad.png" id="1_gfeua"]
+[ext_resource type="Script" uid="uid://g8e3wxj65din" path="res://src/level_elemets/jump_pad.gd" id="1_n86rd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n86rd"]
+size = Vector2(20, 8)
+
+[sub_resource type="Animation" id="Animation_n86rd"]
+resource_name = "pop"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_v6h1i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6h1i"]
+_data = {
+&"RESET": SubResource("Animation_v6h1i"),
+&"pop": SubResource("Animation_n86rd")
+}
+
+[node name="JumpPad" type="Node2D"]
+script = ExtResource("1_n86rd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, -16)
+texture = ExtResource("1_gfeua")
+centered = false
+hframes = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-16, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, -4)
+shape = SubResource("RectangleShape2D_n86rd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v6h1i")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

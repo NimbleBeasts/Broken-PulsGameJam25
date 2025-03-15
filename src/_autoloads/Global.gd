@@ -11,6 +11,9 @@ const DEBUG = false
 var debugLabel: Label
 var current_level: int = -1
 var ink_count: int = 0
+var matches_count: int = 0
+var time: float = 0
+var lifes: int = 0
 
 var userConfig = {
 	"configVersion": CONFIG_VERSION,
@@ -29,5 +32,5 @@ var userConfig = {
 }
 
 const levels = [
-	"res://src/levels/Level1.tscn",
+	"res://src/levels/Level0.tscn",
 ]
