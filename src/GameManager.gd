@@ -20,9 +20,10 @@ func _ready():
 	Events.connect("cfg_switch_fullscreen", Callable(self, "_switchFullscreen"))
 	Events.connect("new_game", Callable(self, "_newGame"))
 	Events.connect("load_level", Callable(self, "_loadLevel"))
-	Events.connect("menu_back", Callable(self, "_backToMenu"))
 	
+	Events.connect("game_end",_backToMenu)
 	Events.connect("game_restart", _game_restart)
+	Events.connect("game_nextlevel", _game_next)
 
 
 	switchTo(Types.GameStates.Menu)
@@ -95,6 +96,10 @@ func _game_restart():
 		unloadLevel()
 	loadLevel(Global.current_level)
 	switchTo(Types.GameStates.Game)
+
+func _game_next():
+	Global.current_level += 1
+	_loadLevel(Global.current_level)
 
 # Event Hook: Update user config for sound
 func setSoundVolume(value):

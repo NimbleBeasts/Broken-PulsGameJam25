@@ -52,43 +52,53 @@ func set_jumppad(strength):
 
 func _physics_process(delta):
 	
+	if Input.is_action_just_pressed("game_end"):
+		Events.emit_signal("game_end")
 	
-	$Label2.set_text(str(state))
 	
-	if Global.debugLabel:
-		Global.debugLabel.set_text("Ink: " + str(Global.ink_count))
-
-	if global_position.y > 666 and not state.dead:
-		state.dead = true
-		return
 	if not state.dead:
+		$Label2.set_text(str(state))
 		
-		var input_direction = get_direction_input()
-		if state.stun: input_direction = Vector2(0, 0)
-		update_animation()
+		if Global.debugLabel:
+			Global.debugLabel.set_text("Ink: " + str(Global.ink_count))
+
+		if global_position.y > 666 and not state.dead:
+			state.dead = true
+			return
+		if not state.dead:
 			
-		match state.current_state:
-			PlayerState.Normal:
-				process_movement(delta, input_direction)
-			PlayerState.Ladder:
-				process_ladder(delta, input_direction)
-			_:
-				pass
-		
-		# Ligthen up the scene
-		if Input.is_action_just_pressed("game_light"):
-			$AnimationPlayer.play("use")
-			if Global.matches_count > 1:
-				Global.matches_count -= 1
-				Events.emit_signal("light")
-				$LightShadow.show()
-		elif Input.is_action_just_pressed("game_restart"):
-			Events.emit_signal("game_restart")
-		# Cheats
-		elif Input.is_action_just_pressed("cheat_flash"):
-			Events.emit_signal("flash")
-		elif Input.is_action_just_pressed("cheat_light"):
-			Events.emit_signal("cheat_light")
+			var input_direction = get_direction_input()
+			if state.stun: 
+				input_direction = Vector2(0, 0)
+				state.velocity.x = state.velocity.x * 0.1
+			update_animation()
+				
+			match state.current_state:
+				PlayerState.Normal:
+					process_movement(delta, input_direction)
+				PlayerState.Ladder:
+					process_ladder(delta, input_direction)
+				_:
+					pass
+			
+			# Ligthen up the scene
+			if Input.is_action_just_pressed("game_light"):
+				$AnimationPlayer.play("use")
+				if Global.matches_count > 1:
+					Global.matches_count -= 1
+					Events.emit_signal("hud_matches", Global.matches_count)
+					Events.emit_signal("light")
+					$LightShadow.show()
+			elif Input.is_action_just_pressed("game_restart"):
+				Events.emit_signal("game_restart")
+			# Cheats
+			elif Input.is_action_just_pressed("cheat_flash"):
+				Events.emit_signal("flash")
+			elif Input.is_action_just_pressed("cheat_light"):
+				Events.emit_signal("cheat_light")
+
+func _has_died():
+	Events.emit_signal("game_restart")
 
 func _flash():
 	$LightShadow.hide()
@@ -255,7 +265,10 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 		else:
 			state.death = true
 			$AnimationPlayer.play("die")
+			Events.emit_signal("cheat_light")
 
+func next_level():
+	Events.emit_signal("game_nextlevel")
 
 func _on_hurt_counter_timeout() -> void:
 	# Player can hurt himself again

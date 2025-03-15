@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://di75x0giljtv"]
+[gd_scene load_steps=13 format=3 uid="uid://di75x0giljtv"]
 
 [ext_resource type="Script" uid="uid://pxb26t2mngml" path="res://src/levels/BaseLevel.gd" id="1_glu2l"]
 [ext_resource type="Texture2D" uid="uid://bgs7h26mo7mbl" path="res://assets/Tileset.png" id="2_y0vfd"]
@@ -167,7 +167,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.9, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
+"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.784314, 0.588235, 0.376471, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -179,7 +179,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.9, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
+"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.784314, 0.588235, 0.376471, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_iearj"]
@@ -222,12 +222,42 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_glu2l"]
+resource_name = "hurt"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Level:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.92549, 0.866667, 0.729412, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.678431, 0.372549, 0.321569, 0), Color(0.92549, 0.866667, 0.729412, 1), Color(0.678431, 0.372549, 0.321569, 1), Color(0.678431, 0.372549, 0.321569, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iearj"]
 _data = {
 &"RESET": SubResource("Animation_r7s8a"),
 &"fade_out": SubResource("Animation_dklsv"),
 &"fire": SubResource("Animation_7y3dr"),
-&"flash": SubResource("Animation_iearj")
+&"flash": SubResource("Animation_iearj"),
+&"hurt": SubResource("Animation_glu2l")
 }
 
 [node name="BaseLevel" type="Node2D"]

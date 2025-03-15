@@ -16,3 +16,5 @@ signal hud_time(value)
 signal hud_lifes(value)
 
 signal game_restart()
+signal game_nextlevel()
+signal game_end()

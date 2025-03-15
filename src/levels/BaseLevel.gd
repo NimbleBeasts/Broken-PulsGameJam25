@@ -12,6 +12,7 @@ var current_line: Line2D = null
 func _ready() -> void:
 	Events.connect("flash", _flash)
 	Events.connect("light", _fire)
+	Events.connect("hurt", _hurt)
 	Events.connect("landing_mark", _landing_mark)
 	Events.connect("cheat_light", _cheat_light)
 	start()
@@ -33,6 +34,7 @@ func start():
 
 	
 func _cheat_light():
+	$AnimationPlayer.stop()
 	$Level.modulate = Color(1, 1, 1, 1)
 	$Background.modulate = Color(1, 1, 1, 1)
 	$LightningTimer.stop()
@@ -49,6 +51,9 @@ func _flash():
 func _fire():
 	$AnimationPlayer.play("fire")
 
+func _hurt():
+	$AnimationPlayer.play("hurt")
+
 func _physics_process(delta: float) -> void:
 	
 	Global.time += delta
@@ -57,17 +62,23 @@ func _physics_process(delta: float) -> void:
 	var mouse_pos = get_global_mouse_position()
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if pressed:
+		if pressed and Global.ink_count > 0:
 			#Continue drawing
-			current_line.add_point(mouse_pos)
-			$PreviewDoodle.remove_child(current_line)
-			$PreviewDoodle.add_child(current_line)
-			Global.ink_count += 1
+			var last_point = current_line.get_point_position(current_line.get_point_count() - 1)
+			if mouse_pos != last_point:
+				if mouse_pos.distance_to(last_point) > 2:
+					current_line.add_point(mouse_pos)
+					$PreviewDoodle.remove_child(current_line)
+					$PreviewDoodle.add_child(current_line)
+					Global.ink_count -= 1
+					Events.emit_signal("hud_ink", Global.ink_count)
 		else:
-			#Start new
-			pressed = true
-			start_new_line(mouse_pos)
-			Global.ink_count += 10
+			if Global.ink_count > 0:
+				#Start new
+				pressed = true
+				start_new_line(mouse_pos)
+				Global.ink_count -= 1
+				Events.emit_signal("hud_ink", Global.ink_count)
 	else:
 		if pressed:
 			$PreviewDoodle.remove_child(current_line)
