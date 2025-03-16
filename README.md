@@ -29,13 +29,14 @@ https://godotshaders.com/shader/simple-rain-snow-shader/
 
 
 # TODOs
-- [ ] Sound
+- [x] Sound
 - [x] Ladder
-- [ ] Rain Shader?
+- [x] Rain Shader?
 - [x] Flame Trap
 - [x] FallGuy
 - [ ] 5 Levels
 - [ ] Balancing
 - [x] Itch Page
-
+- [ ] More Enemies
+- [ ] Moving Platforms
 
