@@ -1,5 +1,7 @@
 extends Node
 
+#warning-ignore-all:unused_signal
+
 signal load_level(id)
 
 # Lights

@@ -7,3 +7,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#$PopSound.play()
 		body.set_jumppad(strength)
 		$AnimationPlayer.play("pop")
+		$AudioStreamPlayer2D.play()

@@ -1,10 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpmkkjkgoaqyj"]
+[gd_scene load_steps=8 format=3 uid="uid://cpmkkjkgoaqyj"]
 
 [ext_resource type="Texture2D" uid="uid://b4i61iynurmgy" path="res://assets/LevelElements/JumpPad.png" id="1_gfeua"]
 [ext_resource type="Script" uid="uid://g8e3wxj65din" path="res://src/level_elemets/jump_pad.gd" id="1_n86rd"]
+[ext_resource type="AudioStream" uid="uid://df2etcufqj1tp" path="res://assets/Sounds/pop.wav" id="3_v6h1i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n86rd"]
 size = Vector2(20, 8)
+
+[sub_resource type="Animation" id="Animation_v6h1i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_n86rd"]
 resource_name = "pop"
@@ -21,21 +37,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 0]
-}
-
-[sub_resource type="Animation" id="Animation_v6h1i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v6h1i"]
@@ -64,5 +65,10 @@ shape = SubResource("RectangleShape2D_n86rd")
 libraries = {
 &"": SubResource("AnimationLibrary_v6h1i")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_v6h1i")
+volume_db = 4.0
+pitch_scale = 1.5
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

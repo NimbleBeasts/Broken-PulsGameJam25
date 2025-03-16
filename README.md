@@ -11,6 +11,23 @@ Game play footage
 # Controls
 ![Controls](assets/Menu/Help.png)
 
+# Creators
+
+This game was a 48h solo adventure however I've used some third party stuff:
+
+## Music
+
+Music was created by Ozzed under CC BY-SA (https://creativecommons.org/licenses/by-sa/3.0/).
+https://ozzed.net/
+https://twitter.com/OzzedNet
+
+
+## Shader
+
+The rain shader was released under public domain here:
+https://godotshaders.com/shader/simple-rain-snow-shader/
+
+
 # TODOs
 - [ ] Sound
 - [x] Ladder
@@ -20,3 +37,5 @@ Game play footage
 - [ ] 5 Levels
 - [ ] Balancing
 - [x] Itch Page
+
+

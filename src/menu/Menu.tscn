@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://duqvai3qj7r4k"]
+[gd_scene load_steps=6 format=3 uid="uid://duqvai3qj7r4k"]
 
 [ext_resource type="Script" uid="uid://0b0ak765xs3o" path="res://src/menu/menu.gd" id="1_kwft6"]
 [ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="1_ps8b8"]
 [ext_resource type="Texture2D" uid="uid://bb0v3cfdw05lr" path="res://assets/Logo.png" id="2_qewun"]
 [ext_resource type="Texture2D" uid="uid://ciu0du1qmdety" path="res://assets/Menu/Help.png" id="4_51sfq"]
+[ext_resource type="AudioStream" uid="uid://coo22h8bfo082" path="res://assets/Sounds/menu_click.wav" id="5_jvbb0"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -117,6 +118,9 @@ vertical_alignment = 1
 texture_filter = 1
 position = Vector2(40, 24)
 texture = ExtResource("2_qewun")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jvbb0")
 
 [connection signal="button_up" from="Main/h/PlayBtn" to="." method="_on_play_btn_button_up"]
 [connection signal="button_up" from="Main/h/HelpBtn" to="." method="_on_help_btn_button_up"]

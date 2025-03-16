@@ -80,6 +80,8 @@ func _physics_process(delta: float) -> void:
 					$PreviewDoodle.add_child(current_line)
 					Global.ink_count -= 1
 					Events.emit_signal("hud_ink", Global.ink_count)
+					if not $AudioStreamPlayer.is_playing():
+						$AudioStreamPlayer.play()
 		else:
 			if Global.ink_count > 0:
 				#Start new
@@ -91,6 +93,7 @@ func _physics_process(delta: float) -> void:
 		if pressed:
 			$PreviewDoodle.remove_child(current_line)
 			$Doodles.add_child(current_line)
+			$AudioStreamPlayer.play()
 		pressed = false
 	
 

@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://dhubh3kcqgnvq"]
+[gd_scene load_steps=3 format=3 uid="uid://dhubh3kcqgnvq"]
+
+[ext_resource type="Script" uid="uid://di8ipku8gd7gh" path="res://src/audio_player.gd" id="1_cj8wn"]
+[ext_resource type="AudioStream" uid="uid://cpnlt62my07ya" path="res://assets/Sounds/ozzedloop.mp3" id="2_cj8wn"]
 
 [node name="AudioPlayer" type="Node2D"]
+script = ExtResource("1_cj8wn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_cj8wn")
+volume_db = -8.0
+autoplay = true
+parameters/looping = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

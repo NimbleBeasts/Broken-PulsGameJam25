@@ -48,6 +48,7 @@ func set_jumppad(strength):
 	state.velocity.y = 0
 	state.jumppad = true
 	state.jumppad_strength = strength
+	$JumpAudio.play()
 
 
 func _physics_process(delta):
@@ -90,6 +91,7 @@ func _physics_process(delta):
 					Global.matches_count -= 1
 					Events.emit_signal("hud_matches", Global.matches_count)
 					Events.emit_signal("light")
+					$MatchAudio.play()
 					$LightShadow.show()
 			elif Input.is_action_just_pressed("game_restart"):
 				Events.emit_signal("game_restart")
@@ -189,6 +191,7 @@ func process_movement(delta, input_direction):
 		state.velocity.y =- JUMP_FORCE
 		state.jumping = true
 		state.has_jumped = true
+		$JumpAudio.play()
 
 	# Stop movement
 	if input_direction == Vector2(0.0, 0.0):
@@ -231,6 +234,7 @@ func process_ladder(delta, input_direction):
 		state.has_jumped = true
 		state.current_state = PlayerState.Normal
 		$AnimationPlayer.play("jump")
+		$JumpAudio.play()
 		return
 	# Not on ladder
 	if $LadderArea.get_overlapping_bodies().size() == 0:
@@ -264,6 +268,7 @@ func _on_hurt_area_body_entered(body: Node2D) -> void:
 	if state.hurt == false:
 		Global.lifes = max(Global.lifes - 1, 0)
 		Events.emit_signal("hud_lifes", Global.lifes)
+		$HurtAudio.play()
 		state.hurt = true
 		state.stun = true
 		

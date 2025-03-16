@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bm8dps8elwshg"]
+[gd_scene load_steps=7 format=3 uid="uid://bm8dps8elwshg"]
 
 [ext_resource type="Script" uid="uid://cfi3lnsgrpp34" path="res://src/hud/hud.gd" id="1_5k8vh"]
 [ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="1_vfst6"]
+[ext_resource type="Shader" uid="uid://cnt25hcoinvh0" path="res://src/hud/Rain.gdshader" id="2_4avfe"]
 [ext_resource type="Texture2D" uid="uid://bex0wwwogxk4e" path="res://assets/Hud/BarUnder.png" id="2_06umg"]
 [ext_resource type="Texture2D" uid="uid://bwpx8shamoakx" path="res://assets/Hud/BarProgress.png" id="3_5k8vh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8g84"]
+shader = ExtResource("2_4avfe")
+shader_parameter/count = 40
+shader_parameter/slant = 0.1
+shader_parameter/speed = 25.0
+shader_parameter/blur = 0.0035
+shader_parameter/colour = Color(0.92549, 0.866667, 0.729412, 1)
+shader_parameter/size = Vector2(0.016, 0.6)
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -13,6 +23,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5k8vh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_b8g84")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Time" type="Label" parent="."]
 layout_mode = 0

@@ -12,13 +12,7 @@ func _ready():
 	Global.debugLabel = $Debug
 
 	# Event Hooks
-	Events.connect("cfg_music_set_volume", Callable(self, "setMusicVolume"))
-	Events.connect("cfg_sound_set_volume", Callable(self, "setSoundVolume"))
-	Events.connect("cfg_change_brightness", Callable(self, "setBrightness"))
-	Events.connect("cfg_change_contrast", Callable(self, "setContrast"))
-
-	Events.connect("cfg_switch_fullscreen", Callable(self, "_switchFullscreen"))
-	Events.connect("new_game", Callable(self, "_newGame"))
+	#Events.connect("new_game", Callable(self, "_newGame"))
 	Events.connect("load_level", Callable(self, "_loadLevel"))
 	
 	Events.connect("game_end",_backToMenu)

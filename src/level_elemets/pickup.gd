@@ -8,4 +8,9 @@ func _ready() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("pickup"):
 		body.pickup(type)
-		queue_free()
+		$AudioStreamPlayer2D.play()
+		$Sprite2D.hide()
+		
+
+func _on_audio_stream_player_2d_finished() -> void:
+	queue_free()

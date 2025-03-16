@@ -108,22 +108,22 @@ strength = 5
 position = Vector2(152, 128)
 strength = 0
 
-[node name="Pickup" parent="Level" index="10" instance=ExtResource("4_vv04x")]
-position = Vector2(328, 176)
-type = 1
-
-[node name="Pickup2" parent="Level" index="11" instance=ExtResource("4_vv04x")]
-position = Vector2(664, 176)
-type = 2
-
-[node name="Pickup3" parent="Level" index="12" instance=ExtResource("4_vv04x")]
-position = Vector2(808, 48)
-
-[node name="LevelEnd" parent="Level" index="13" instance=ExtResource("5_j4so5")]
+[node name="LevelEnd" parent="Level" index="10" instance=ExtResource("5_j4so5")]
 position = Vector2(1072, 64)
 
 [node name="Player" parent="." index="2"]
 position = Vector2(72, 120)
+
+[node name="Pickup" parent="Pickups" index="0" instance=ExtResource("4_vv04x")]
+position = Vector2(328, 176)
+type = 1
+
+[node name="Pickup2" parent="Pickups" index="1" instance=ExtResource("4_vv04x")]
+position = Vector2(664, 176)
+type = 2
+
+[node name="Pickup3" parent="Pickups" index="2" instance=ExtResource("4_vv04x")]
+position = Vector2(808, 48)
 
 [node name="Tutorial" type="RichTextLabel" parent="." index="9"]
 offset_left = 16.0
@@ -148,5 +148,5 @@ libraries = {
 }
 autoplay = "start"
 
-[node name="LightningTimer" parent="." index="10"]
+[node name="LightningTimer" parent="." index="11"]
 wait_time = 10.0

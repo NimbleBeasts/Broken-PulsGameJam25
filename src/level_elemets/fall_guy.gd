@@ -21,4 +21,5 @@ func _on_detect_player_body_entered(body: Node2D) -> void:
 	if body.has_method("pickup"):
 		if not triggered:
 			$AnimationPlayer.play("awake")
+			$AudioStreamPlayer2D.play()
 			triggered = true

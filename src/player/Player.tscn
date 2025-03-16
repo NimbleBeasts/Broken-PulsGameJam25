@@ -1,12 +1,54 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7g6rlccocxno"]
+[gd_scene load_steps=21 format=3 uid="uid://c7g6rlccocxno"]
 
 [ext_resource type="Script" uid="uid://3p15ggsweeqb" path="res://src/player/player.gd" id="1_g641l"]
 [ext_resource type="Texture2D" uid="uid://yfg2nk1h8piu" path="res://assets/Player/Player.png" id="1_tehm3"]
 [ext_resource type="FontFile" uid="uid://dr6f781ijisk4" path="res://assets/Fonts/mago3.3.ttf" id="2_chb7w"]
 [ext_resource type="Texture2D" uid="uid://b11jeily2dx7" path="res://assets/LightShadow.png" id="4_3ojaj"]
+[ext_resource type="AudioStream" uid="uid://nqvld3y7ku1l" path="res://assets/Sounds/player_hurt.wav" id="5_565yv"]
+[ext_resource type="AudioStream" uid="uid://bbqak8cooschq" path="res://assets/Sounds/player_jump.wav" id="6_v7rlw"]
+[ext_resource type="AudioStream" uid="uid://df2etcufqj1tp" path="res://assets/Sounds/pop.wav" id="7_v5qoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7rlw"]
 size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_jtmj1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpriteHolder/Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteHolder/Player:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_565yv"]
 resource_name = "die"
@@ -80,6 +122,22 @@ tracks/0/keys = {
 "values": [7, 8]
 }
 
+[sub_resource type="Animation" id="Animation_ebyyx"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteHolder/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 14, 15, 13]
+}
+
 [sub_resource type="Animation" id="Animation_g641l"]
 resource_name = "idle"
 loop_mode = 1
@@ -113,8 +171,8 @@ tracks/0/keys = {
 "values": [4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_v5qoq"]
-resource_name = "walk"
+[sub_resource type="Animation" id="Animation_es4xk"]
+resource_name = "ladder"
 length = 0.4
 loop_mode = 1
 step = 0.1
@@ -125,65 +183,10 @@ tracks/0/path = NodePath("SpriteHolder/Player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [9, 10, 11, 12]
-}
-
-[sub_resource type="Animation" id="Animation_jtmj1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteHolder/Player:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpriteHolder/Player:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -12)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SpriteHolder/Player:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ebyyx"]
-resource_name = "hurt"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteHolder/Player:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"times": PackedFloat32Array(0, 0.0001, 0.0002, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [13, 14, 15, 14, 15, 13]
+"values": [18, 18, 18, 19, 20, 19]
 }
 
 [sub_resource type="Animation" id="Animation_bj1ma"]
@@ -203,8 +206,8 @@ tracks/0/keys = {
 "values": [16, 17]
 }
 
-[sub_resource type="Animation" id="Animation_es4xk"]
-resource_name = "ladder"
+[sub_resource type="Animation" id="Animation_v5qoq"]
+resource_name = "walk"
 length = 0.4
 loop_mode = 1
 step = 0.1
@@ -215,10 +218,10 @@ tracks/0/path = NodePath("SpriteHolder/Player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.0002, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [18, 18, 18, 19, 20, 19]
+"values": [9, 10, 11, 12]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ojaj"]
@@ -309,6 +312,19 @@ wait_time = 1.2
 
 [node name="StunCounter" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="HurtAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_565yv")
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v7rlw")
+volume_db = -2.0
+pitch_scale = 1.4
+
+[node name="MatchAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_v5qoq")
+volume_db = 4.0
+pitch_scale = 3.0
 
 [connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
 [connection signal="body_entered" from="LadderArea" to="." method="_on_ladder_area_body_entered"]

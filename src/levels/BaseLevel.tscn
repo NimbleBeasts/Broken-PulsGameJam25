@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://di75x0giljtv"]
+[gd_scene load_steps=14 format=3 uid="uid://di75x0giljtv"]
 
 [ext_resource type="Script" uid="uid://pxb26t2mngml" path="res://src/levels/BaseLevel.gd" id="1_glu2l"]
 [ext_resource type="Texture2D" uid="uid://bgs7h26mo7mbl" path="res://assets/Tileset.png" id="2_y0vfd"]
 [ext_resource type="PackedScene" uid="uid://c7g6rlccocxno" path="res://src/player/Player.tscn" id="3_rsmv0"]
 [ext_resource type="AudioStream" uid="uid://dagc1jmlk1fxc" path="res://assets/Sounds/lightning.wav" id="4_x4dei"]
+[ext_resource type="AudioStream" uid="uid://dftgwaoysgfjy" path="res://assets/Sounds/ink.wav" id="5_y0vfd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dklsv"]
 texture = ExtResource("2_y0vfd")
@@ -281,6 +282,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_iearj")
 }
 
+[node name="Pickups" type="Node2D" parent="."]
+
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="Marks" type="Node2D" parent="."]
@@ -296,5 +299,10 @@ volume_db = 2.0
 [node name="LightningTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_y0vfd")
+volume_db = 12.0
+pitch_scale = 1.2
 
 [connection signal="timeout" from="LightningTimer" to="." method="_on_lightning_timer_timeout"]
